@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Bills</h1>
+  	<ul>
+  	{% for bill in bills %}
+  		<li>bill.description, bill.due_date, bill.amount</li>
+  	{% endfor %}
+{% endblock %}

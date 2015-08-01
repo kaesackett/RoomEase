@@ -9,8 +9,7 @@ Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 
 from flask import Flask, request, render_template, redirect, flash
 import jinja2
-
-# import model
+from model import User, House, Bill, connect_to_db, db
 
 app = Flask(__name__)
 
@@ -23,10 +22,44 @@ def index():
 	"""Return homepage."""
 	return render_template("index.html")
 
-@app.route("/other-page")
-def load_other_page():
-	return render_template("other-page.html",
-							jinja_stuff = jinja_stuff)
+@app.route('/login_handler', methods=["POST"])
+def handle_login():
+    """Process login info."""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    #If both email and password are correct, log them in
+    if User.query.filter(User.email == email, User.password == password).first():
+        flash("You are now logged in.")
+        session["email"] = email
+    #if email is correct but not password, tell them they fucked up
+    elif User.query.filter(User.email == email, User.password != password).first(): 
+        flash("Incorrect login information provided. Please try again.")
+        return redirect("/login_form")
+    #If both email and pass were incorrect, make a new user
+    else:
+        new_user = User(email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash("Welcome new user. You've been added to our database!")
+        session["email"] = email
+    return redirect('/')
+
+@app.route('/logout', methods=["POST"])
+def handle_logout():
+    """Process user logout."""
+
+    del session["email"]
+    flash("You are now logged out.")
+    return redirect('/')
+
+@app.route("/bills")
+def bill_list():
+    """Show list of bills."""
+
+    bills = Bill.query.order_by(bill.description).all()
+    return render_template("bill_list.html", bills=bills)
 
 # OTHER ROUTES TO BE ADDED HERE
 

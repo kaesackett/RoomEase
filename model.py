@@ -1,43 +1,81 @@
 """Model for RoomEase site."""
 
-import sqlite3
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey
 
-class Roommate(object):
-	"""
-	"""
+db = SQLAlchemy()
 
-	def __init__(self,
-				first_name,
-				last_name,
-				age)
+###################################################################
+# Model Definitions
 
-		self.first_name = first_name
-		self.last_name = last_name
-		self.age = age
+class User(db.Model):
+    """User of RoomEase website."""
 
-	def __repr__(self):
-        """Show information about roommate in console."""
+    __tablename__ = "users"
 
-        return "<Roommate: %s, %s, %s>" % (
-            self.first_name, self.last_name, self.age
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    email = db.Column(db.String(64), nullable=True, unique=True)
+    password = db.Column(db.String(64), nullable=True)
+    name = db.Column(db.String(30), nullable=False)
+    house_id = db.Column(db.Integer, ForeignKey('houses.house_id'), nullable=False)
+    phone = db.Column(db.Integer, nullable=False, unique=True)
 
-    @classmethod
-    def get_by_name (cls, first_name):
-    	"""Query for a specific roommate in the database."""
 
-    	cursor = db_connect()
-    	QUERY = """
-    		SELECT first_name, last_name, age
-    		FROM Roommates
-    		WHERE first_name = ?
-    		"""
+    def __repr__(self):
+        """Provide helpful representation when printed."""
 
-    		cursor.execute(QUERY, (first_name,))
-    		row = cursor.fetchone()
+        return "<User user_id=%s house_id= %s email=%s>" % (self.user_id, self.house_id, self.email)
 
-    		if not row:
-    			return "No roommate by that name."
+class House(db.Model):
+    """Model for each individual group of roommates (houses)."""
 
-    		roommate = Roommate(*row)
+    __tablename__ = "houses"
 
-    		return roommate
+    house_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    address = db.Column(db.String(100), nullable=False, unique=True)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<House house_id=%s address=%s>" % (self.house_id, self.address)
+
+	# Define relationship to user
+    user = db.relationship("User", backref=db.backref("houses", order_by=house_id))
+
+	# Define relationship to bill
+    bill = db.relationship("Bill", backref=db.backref("houses", order_by=house_id))
+
+class Bill(db.Model):
+    """Model for each individual bill for a house."""
+
+    __tablename__ = "bills"
+
+    bill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    house_id = db.Column(db.Integer, ForeignKey('houses.house_id'), nullable=False)
+    due_date = db.Column(db.Date, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    description = db.Column(db.String(20), nullable=False, unique=True)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Bill bill_id=%s house_id=%s description=%s due_date=%s amount=%s>" % (self.bill_id, self.house_id, self.description, self.due_date, self.amount)
+
+##############################################################################
+# Helper functions
+
+def connect_to_db(app):
+    """Connect the database to our Flask app."""
+
+    # Configure to use our SQLite database
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///roomease.db'
+    db.app = app
+    db.init_app(app)
+
+if __name__ == "__main__":
+    # As a convenience, if we run this module interactively, it will leave
+    # you in a state of being able to work with the database directly.
+
+    from server import app
+    connect_to_db(app)
+    print "Connected to DB."
