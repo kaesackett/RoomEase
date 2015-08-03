@@ -52,9 +52,9 @@ class Bill(db.Model):
 
     bill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     house_id = db.Column(db.Integer, ForeignKey('houses.house_id'), nullable=False)
-    due_date = db.Column(db.Date, nullable=False)
+    due_date = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float, nullable=False)
-    description = db.Column(db.String(20), nullable=False, unique=True)
+    description = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

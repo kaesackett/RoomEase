@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-
-  	<style>
-  	footer {
-  		background-color: #F6F6F6;
-  	}
-  	</style>
+<head>
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="sticky-footer-navbar.css">
+	
+	<style>
+	  #logo {
+	  	padding: 1px;
+	  	width:50px;
+	  	height:50px;
+	  }
 
-	<nav class="navbar navbar-default">
+	  #navmaster {
+	  	padding: 3px;
+	  	padding-top: 2px;
+	  }
+	</style>
+
+  <div id="navmaster">
+	<nav class="navbar navbar-default img-rounded">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -21,70 +28,74 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	          <a class="navbar-brand" rel="home" href="#" title="RoomEase">
-        		<img style="max-width:150px; margin-top: -7px;" src="./static/images/logo.xcf">
-    		</a>
-    		
+		      <a href="/"> <img id="logo" class="navbar-brand" href="#" src="./static/images/newlogo.png"></a>
+	    </div>
+
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Link</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">One more separated link</a></li>
-	          </ul>
-	        </li>
+	        <li class="active"><a href="/calendar">Calendar<span class="sr-only">(current)</span></a></li>
+	        <li><a href="/roomies">Roomies</a></li>
+	        <li><a href="/bills">Bills</a></li>
 	      </ul>
-	      <form class="navbar-form navbar-left" role="search">
-	        <div class="form-group">
-	          <input type="text" class="form-control" placeholder="Search">
-	        </div>
-	        <button type="submit" class="btn btn-default">Submit</button>
-	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#">Link</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	          </ul>
-	        </li>
+	        <li><a href="/my_profile">My Profile</a></li>
+	        <li><button id="showLogin">LogIn</button></li>
+	        <li class="dropdown"></li>
 	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
+	    </div>
+	  </div>
 	</nav>
-  </head>
+  </div>
+</head>
+
 <body>
+<div id="login_modal" class="modal fade main-image-modal in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+<!-- 		<form id="loginform" name="loginform" method="POST" action="/login_handler">
+      	  <label for="username">Username:</label>
+      		<input type="text" name="username" id="username" class="txtfield" tabindex="1"> 
+      	  <label for="password">Password:</label>
+      		<input type="password" name="password" id="password" class="txtfield" tabindex="2">
+      	  <div class="center">
+      	  	<input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3">
+      	  </div>
+    	</form> -->
+        <img alt="Space Taco" class="img-responsive" src="static/images/spacetaco.gif">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
 {% block content %}
 {% endblock %}
 
 <!-- Bootstrap Source -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 <!-- JQuery Source -->
-<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<script>
+function showLogin(){
+	$('div#login_modal').attr('style', 'display: block;');
+};
+
+$('button#showLogin').on('click', showLogin);
+</script>
 
 </body>
 
-<footer class="footer">
-	<div class="container">
-        <p class="text-muted">Created by Kae Sackett at Hackbright XI.
+<footer>
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <p class="text-muted">Created by <strong>Kae Sackett</strong> at Hackbright XI.
         <a href="http://www.github.com/kaesackett">GitHub</a>
         <a href="http://www.linkedin.com/kaesackett">LinkedIn</a>
         <a href="/myresumefilepath">Resume</a>
-        </p>
+      </p>
     </div>
+  </nav>
 </footer>
 </html>

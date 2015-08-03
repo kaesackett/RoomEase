@@ -17,7 +17,7 @@ app.secret_key = 'TX24653346kns!2015'
 
 app.jinja_env.undefined = jinja2.StrictUndefined
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
 	"""Return homepage."""
 	return render_template("index.html")
@@ -54,14 +54,34 @@ def handle_logout():
     flash("You are now logged out.")
     return redirect('/')
 
+@app.route("/calendar")
+def show_calendar():
+    """Show the user the group calendar for their house."""
+
+    # STUFF IN HERE
+    return render_template("calendar.html")
+
 @app.route("/bills")
 def bill_list():
     """Show list of bills."""
 
-    bills = Bill.query.order_by(bill.description).all()
-    return render_template("bill_list.html", bills=bills)
+    # ....
+    # bills = Bill.query.order_by(bill.description).all()
+    return render_template("bill_list.html")
 
-# OTHER ROUTES TO BE ADDED HERE
+@app.route("/roomies")
+def roomie_list():
+    """Show list of roommates."""
+
+    # ....
+    return render_template("roomie_list.html")
+
+@app.route("/my_profile")
+def my_profile():
+    """Show details of the account of the user currently in session."""
+
+    # QUERY FOR USER AND STUFF HERE
+    return render_template("my_profile.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
