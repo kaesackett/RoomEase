@@ -7,7 +7,7 @@ and other useful stuff.
 Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 """
 
-from flask import Flask, request, render_template, redirect, flash
+from flask import Flask, request, render_template, redirect, flash, session
 import jinja2
 from model import User, House, Bill, connect_to_db, db
 
@@ -65,9 +65,8 @@ def show_calendar():
 def bill_list():
     """Show list of bills."""
 
-    # ....
-    # bills = Bill.query.order_by(bill.description).all()
-    return render_template("bill_list.html")
+    bills = Bill.query.order_by(Bill.description).all()
+    return render_template("bill_list.html", bills=bills)
 
 @app.route("/roomies")
 def roomie_list():

@@ -61,6 +61,25 @@ class Bill(db.Model):
 
         return "<Bill bill_id=%s house_id=%s description=%s due_date=%s amount=%s>" % (self.bill_id, self.house_id, self.description, self.due_date, self.amount)
 
+class Users_Bills(db.Model):
+    """Model to track bills from the perspective of an individual user."""
+
+    __tablename__ = "users-bills"
+
+    user_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
+    bill_id = db.Column(db.Integer, ForeignKey('bills.bill_id'), nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Users-Bills user_id=%s bill_id=%s>" % (self.user_id, self.bill_id)
+
+    # Define relationship to user
+    user = db.relationship("User", backref=db.backref("users-bills", order_by=bill_id))
+
+    # Define relationship to bill
+    bill = db.relationship("Bill", backref=db.backref("users-bills", order_by=bill_id))
+
 ##############################################################################
 # Helper functions
 
