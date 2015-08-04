@@ -1,8 +1,8 @@
 """RoomEase organization application, Flask server.
 
 Provides web interface for organizing tasks between roommates.
-Incl bill division and reminders, group calendar, message board,
-and other useful stuff. 
+Includes bill division and reminders, group calendar, and 
+other useful stuff. 
 
 Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 """
@@ -20,7 +20,7 @@ app.secret_key = 'TX24653346kns!2015'
 
 app.jinja_env.undefined = jinja2.StrictUndefined
 
-# API stuff
+# Twilio API Connection and Authorization
 account = os.environ['TWILIO_ACCOUNT_SID']
 token = os.environ['TWILIO_AUTH_TOKEN']
 client = TwilioRestClient(account, token)
