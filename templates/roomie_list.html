@@ -1,4 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-    Roommate stuff goes here!
+    <ul>
+    {% for roommate in roommates %}
+        <li>{{roommate.name}}, {{roommate.phone}}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}

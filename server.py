@@ -22,6 +22,25 @@ def index():
 	"""Return homepage."""
 	return render_template("index.html")
 
+@app.route('/sign_up', methods=["POST"])
+def handle_signup():
+    """Process sign up info to create a new user in the database."""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+    name = request.form.get("name")
+    address = request.form.get("address")
+    phone = request.form.get("phone")
+
+    house = House.query.filter_by(address).one()
+    house_id = house.house_id
+    new_user = User(email=email, password=password, name=name, house_id=house_id, phone=phone)
+    db.session.add(new_user)
+    db.session.commit()
+    flash("Welcome new user!")
+    session["email"] = email
+    return redirect('/')
+
 @app.route('/login_handler', methods=["POST"])
 def handle_login():
     """Process login info."""
@@ -33,18 +52,11 @@ def handle_login():
     if User.query.filter(User.email == email, User.password == password).first():
         flash("You are now logged in.")
         session["email"] = email
+        return redirect('/')
     #if email is correct but not password, tell them they fucked up
     elif User.query.filter(User.email == email, User.password != password).first(): 
         flash("Incorrect login information provided. Please try again.")
-        return redirect("/login_form")
-    #If both email and pass were incorrect, make a new user
-    else:
-        new_user = User(email=email, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash("Welcome new user. You've been added to our database!")
-        session["email"] = email
-    return redirect('/')
+        return redirect("/")
 
 @app.route('/logout', methods=["POST"])
 def handle_logout():
@@ -65,15 +77,15 @@ def show_calendar():
 def bill_list():
     """Show list of bills."""
 
-    bills = Bill.query.order_by(Bill.description).all()
+    bills = Bill.query.all()
     return render_template("bill_list.html", bills=bills)
 
 @app.route("/roomies")
 def roomie_list():
     """Show list of roommates."""
 
-    # ....
-    return render_template("roomie_list.html")
+    roommates = User.query.all()
+    return render_template("roomie_list.html", roommates=roommates)
 
 @app.route("/my_profile")
 def my_profile():
@@ -83,4 +95,5 @@ def my_profile():
     return render_template("my_profile.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    connect_to_db(app)
+    app.run()

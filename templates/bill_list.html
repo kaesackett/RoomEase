@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+  <h3>Bills</h3>
     <ul>
     {% for bill in bills %}
-        <li>{{bill.description}}, {{bill.amount}}, {{bill.due_date}}</li>
+        <li>{{bill.description}}, ${{"%0.2f" | format(bill.amount)}}</li>
     {% endfor %}
     </ul>
 {% endblock %}

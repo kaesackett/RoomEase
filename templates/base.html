@@ -15,6 +15,14 @@
 	  	padding: 3px;
 	  	padding-top: 2px;
 	  }
+
+      #body {
+        background-color: lightgrey;
+      }
+
+      footer {
+        text-align: center;
+      }
 	</style>
 
   <div id="navmaster">
@@ -48,34 +56,38 @@
 	</nav>
   </div>
 </head>
-
 <body>
+  <ul>
+    {% for message in get_flashed_messages() %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
 <div id="login_modal" class="modal fade main-image-modal in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body text-center">
-<!-- 		<form id="loginform" name="loginform" method="POST" action="/login_handler">
-      	  <label for="username">Username:</label>
-      		<input type="text" name="username" id="username" class="txtfield" tabindex="1"> 
+		<form id="loginform" name="loginform" method="POST" action="/login_handler">
+      	  <label for="email">Email:</label>
+      		<input type="text" name="email" id="email" class="txtfield" tabindex="1"> 
       	  <label for="password">Password:</label>
       		<input type="password" name="password" id="password" class="txtfield" tabindex="2">
       	  <div class="center">
       	  	<input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3">
       	  </div>
-    	</form> -->
-        <img alt="Space Taco" class="img-responsive" src="static/images/spacetaco.gif">
+    	</form>
+<!--         <img alt="Space Taco" class="img-responsive" src="static/images/spacetaco.gif"> -->
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
-
-{% block content %}
-{% endblock %}
-
-<!-- Bootstrap Source -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<div id="body" class="fluid-container img-rounded">
+  {% block content %}
+  {% endblock %}
+</div>
 <!-- JQuery Source -->
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap Source -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script>
 function showLogin(){
@@ -91,8 +103,8 @@ $('button#showLogin').on('click', showLogin);
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
       <p class="text-muted">Created by <strong>Kae Sackett</strong> at Hackbright XI.
-        <a href="http://www.github.com/kaesackett">GitHub</a>
-        <a href="http://www.linkedin.com/kaesackett">LinkedIn</a>
+        <a href="http://www.github.com/kaesackett">GitHub</a> | 
+        <a href="http://www.linkedin.com/kaesackett">LinkedIn</a> | 
         <a href="/myresumefilepath">Resume</a>
       </p>
     </div>

@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+import datetime
 
 db = SQLAlchemy()
 
@@ -40,10 +41,10 @@ class House(db.Model):
         return "<House house_id=%s address=%s>" % (self.house_id, self.address)
 
 	# Define relationship to user
-    user = db.relationship("User", backref=db.backref("houses", order_by=house_id))
+    users = db.relationship("User", backref=db.backref("house", order_by=house_id))
 
 	# Define relationship to bill
-    bill = db.relationship("Bill", backref=db.backref("houses", order_by=house_id))
+    bills = db.relationship("Bill", backref=db.backref("house", order_by=house_id))
 
 class Bill(db.Model):
     """Model for each individual bill for a house."""
@@ -61,24 +62,33 @@ class Bill(db.Model):
 
         return "<Bill bill_id=%s house_id=%s description=%s due_date=%s amount=%s>" % (self.bill_id, self.house_id, self.description, self.due_date, self.amount)
 
-class Users_Bills(db.Model):
-    """Model to track bills from the perspective of an individual user."""
+class User_Payment(db.Model):
+    """Model to track who's paid what from the perspective of an individual user."""
 
-    __tablename__ = "users-bills"
+    __tablename__ = "user_payments"
 
+    user_payment_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
     bill_id = db.Column(db.Integer, ForeignKey('bills.bill_id'), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now())
+
+    def calculate_user_portion(self):
+        pass
+        # THIS FUNCTION WILL QUERY TO COUNT ALL OF THE USERS IN A HOUSE
+        # THEN DIVIDE THE AMOUNT OF SOME BILL BY THAT COUNT
+        # TO PROVIDE THEM WITH THE PORTION THEY ARE PERSONALLY RESPONSIBLE FOR
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Users-Bills user_id=%s bill_id=%s>" % (self.user_id, self.bill_id)
+        return "<User_Payment user_id=%s bill_id=%s>" % (self.user_id, self.bill_id)
 
     # Define relationship to user
-    user = db.relationship("User", backref=db.backref("users-bills", order_by=bill_id))
+    user = db.relationship("User", backref=db.backref("user_payments", order_by=bill_id))
 
     # Define relationship to bill
-    bill = db.relationship("Bill", backref=db.backref("users-bills", order_by=bill_id))
+    bill = db.relationship("Bill", backref=db.backref("user_payments", order_by=bill_id))
 
 ##############################################################################
 # Helper functions

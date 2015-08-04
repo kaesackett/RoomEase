@@ -7,10 +7,12 @@ def load_users():
     for line in the_file:
         split_line = line.split("|")
         user_id = split_line[0]
-        name = split_line[1]
-        house_id = split_line[2]
-        phone = split_line[3]
-        new_user = User(user_id=user_id, name=name, house_id=house_id, phone=phone)
+        email = split_line[1]
+        password = split_line[2]
+        name = split_line[3]
+        house_id = split_line[4]
+        phone = split_line[5]
+        new_user = User(user_id=user_id, email=email, password=password, name=name, house_id=house_id, phone=phone)
         db.session.add(new_user)
     db.session.commit()
 

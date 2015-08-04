@@ -1,7 +1,7 @@
-1|Kae|1|2564529235
-2|Andrew|1|4156346477
-3|Morgan|1|5124557263
-4|Kevin|1|2564538274
-5|Marcy|2|2565537442
-6|Rachael|2|2566347235
-7|Victoria|2|2564539811
+1|kae@gmail.com|actualpassword|Kae|1|2564529235
+2|andrew@gmail.com|actualpassword|Andrew|1|4156346477
+3|morgan@gmail.com|actualpassword|Morgan|1|5124557263
+4|kevin@gmail.com|actualpassword|Kevin|1|2564538274
+5|marcyrh@gmail.com|actualpassword|Marcy|2|2565537442
+6|rachael@gmail.com|actualpassword|Rachael|2|2566347235
+7|victoria@gmail.com|actualpassword|Victoria|2|2564539811
