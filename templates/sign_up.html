@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<form name="signup_form" action="/sign_up_handler" method="POST">
+  <label for="email"></label>
+  	<input type="text" name="email" id="email" class="txtfield" placeholder="Email" tabindex="1">
+  <br>
+  <label for="password"></label>
+   	<input type="password" name="password" id="password" class="txtfield" placeholder="Password" tabindex="1">
+  <br>
+  <label for="name"></label>
+    <input type="text" name="name" id="name" class="txtfield" placeholder="First Name" tabindex="1">
+  <br>
+  <label for="address"></label>
+  	<input type="text" name="address" id="address" class="txtfield" placeholder="Address" tabindex="1">
+  <br>
+  <label for="phone"></label>
+    <input type="tel" name="phone" id="phone" class="txtfield" placeholder="Phone" tabindex="1">
+  <br>
+  <button type="submit">Register Now</button>
+</form>
+{% endblock %}

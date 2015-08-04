@@ -25,7 +25,14 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<User user_id=%s house_id= %s email=%s>" % (self.user_id, self.house_id, self.email)
+        return "<User user_id=%s house_id=%s email=%s>" % (self.user_id, self.house_id, self.email)
+
+    def __init__(self, email, password, name, phone, house_id):
+        self.email = email
+        self.password = password
+        self.name = name
+        self.phone = phone
+        self.house_id = house_id
 
 class House(db.Model):
     """Model for each individual group of roommates (houses)."""

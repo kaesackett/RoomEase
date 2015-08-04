@@ -9,6 +9,7 @@ Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 
 from flask import Flask, request, render_template, redirect, flash, session
 import jinja2
+from flask_debugtoolbar import DebugToolbarExtension
 from model import User, House, Bill, connect_to_db, db
 
 app = Flask(__name__)
@@ -22,7 +23,12 @@ def index():
 	"""Return homepage."""
 	return render_template("index.html")
 
-@app.route('/sign_up', methods=["POST"])
+@app.route("/sign_up")
+def show_signup_page():
+    """Allow the user access to the form that they can use to register for my site."""
+    return render_template("sign_up.html")
+
+@app.route('/sign_up_handler', methods=["POST"])
 def handle_signup():
     """Process sign up info to create a new user in the database."""
 
@@ -32,9 +38,16 @@ def handle_signup():
     address = request.form.get("address")
     phone = request.form.get("phone")
 
-    house = House.query.filter_by(address).one()
+    try:
+        house = House.query.filter(House.address==address).one()
+    except:
+        new_house = House(address=address)
+        db.session.add(new_house)
+        db.session.commit()
+        house = House.query.filter(House.address==address).one()
     house_id = house.house_id
-    new_user = User(email=email, password=password, name=name, house_id=house_id, phone=phone)
+    new_user = User(email=email, password=password, name=name, phone=phone, house_id=house_id)
+    print new_user
     db.session.add(new_user)
     db.session.commit()
     flash("Welcome new user!")
@@ -70,30 +83,49 @@ def handle_logout():
 def show_calendar():
     """Show the user the group calendar for their house."""
 
-    # STUFF IN HERE
-    return render_template("calendar.html")
+    if session:
+        return render_template("calendar.html")
+    else:
+        return render_template("nope.html")
 
 @app.route("/bills")
 def bill_list():
     """Show list of bills."""
 
-    bills = Bill.query.all()
-    return render_template("bill_list.html", bills=bills)
+    if session:
+        user = User.query.filter_by(email=session["email"]).one()
+        house_id = user.house_id
+        bills = Bill.query.filter_by(house_id=house_id).all()
+        print bills
+        return render_template("bill_list.html", bills=bills)
+    else:
+        return render_template("nope.html")
 
 @app.route("/roomies")
 def roomie_list():
     """Show list of roommates."""
 
-    roommates = User.query.all()
-    return render_template("roomie_list.html", roommates=roommates)
+    if session:
+        user = User.query.filter_by(email=session["email"]).one()
+        house_id = user.house_id
+        roommates = User.query.filter_by(house_id=house_id).all()
+        return render_template("roomie_list.html", roommates=roommates)
+    else:
+        return render_template("nope.html")
 
 @app.route("/my_profile")
 def my_profile():
     """Show details of the account of the user currently in session."""
 
-    # QUERY FOR USER AND STUFF HERE
-    return render_template("my_profile.html")
+    if session:
+        user = User.query.filter_by(email=session["email"]).one()
+        return render_template("my_profile.html")
+    else:
+        return render_template("nope.html")
 
 if __name__ == "__main__":
+    app.debug = True
+    # Use the DebugToolbar
+    DebugToolbarExtension(app)
     connect_to_db(app)
     app.run()

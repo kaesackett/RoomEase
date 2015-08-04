@@ -48,7 +48,18 @@
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a href="/my_profile">My Profile</a></li>
-	        <li><button id="showLogin">LogIn</button></li>
+			{% if 'email' not in session %}
+            <li>
+              <button id="showLogin">Log In</button>
+            </li>
+        	{% else %}
+        	<li>
+              <form action="/logout" method="POST">
+              	<input type="submit" value="Log Out">
+              </form>
+            </li>
+			{% endif %}
+
 	        <li class="dropdown"></li>
 	      </ul>
 	    </div>
@@ -74,6 +85,7 @@
       	  <div class="center">
       	  	<input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3">
       	  </div>
+      	  <a href="/sign_up">Click Here to Register</a>
     	</form>
 <!--         <img alt="Space Taco" class="img-responsive" src="static/images/spacetaco.gif"> -->
       </div>
