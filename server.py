@@ -7,9 +7,11 @@ and other useful stuff.
 Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 """
 
-from flask import Flask, request, render_template, redirect, flash, session
 import jinja2
+import os
+from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
+from twilio.rest import TwilioRestClient
 from model import User, House, Bill, connect_to_db, db
 
 app = Flask(__name__)
@@ -17,6 +19,11 @@ app = Flask(__name__)
 app.secret_key = 'TX24653346kns!2015'
 
 app.jinja_env.undefined = jinja2.StrictUndefined
+
+# API stuff
+account = os.environ['TWILIO_ACCOUNT_SID']
+token = os.environ['TWILIO_AUTH_TOKEN']
+client = TwilioRestClient(account, token)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
