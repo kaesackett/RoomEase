@@ -1,13 +1,50 @@
 {% extends "base.html" %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 {% block content %}
+
   <h3>Bills</h3>
-    <ul>
+
+  <div id="accordion">
     {% for bill in bills %}
-        <li>{{bill.description}}, ${{"%0.2f" | format(bill.amount)}}</li>
+      <h4>{{bill.description}}</h4>
+        <div class="group">
+          <p>
+            Amount: ${{"%0.2f" | format(bill.amount)}}<br>
+            Due Date: {{bill.due_date}}
+          </p>
+        </div>
     {% endfor %}
-    </ul>
-    <br>
+  </div>
   <form align="right" action="/add_bill">
     <button type="submit">Add Bill</button>
   </form>
 {% endblock %}
+
+<script>
+  $(function() {
+    $("div#accordion")
+      .accordion({
+        header: "> div > h3"
+      })
+      .sortable({
+        axis: "y",
+        handle: "h3",
+        stop: function( event, ui ) {
+          ui.item.children( "h3" ).triggerHandler( "focusout" ); 
+          // Refresh accordion to handle new order
+          $( this ).accordion( "refresh" );
+        }
+      });
+  });
+</script>
+
+<script>
+$(function() {
+  $( "#accordion" ).accordion();
+});
+</script>

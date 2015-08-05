@@ -105,7 +105,6 @@ def bill_list():
         user = User.query.filter_by(email=session["email"]).one()
         house_id = user.house_id
         bills = Bill.query.filter_by(house_id=house_id).all()
-        print bills
         return render_template("bill_list.html", bills=bills)
     else:
         return render_template("nope.html")
