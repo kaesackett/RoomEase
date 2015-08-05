@@ -6,4 +6,8 @@
         <li>{{bill.description}}, ${{"%0.2f" | format(bill.amount)}}</li>
     {% endfor %}
     </ul>
+    <br>
+  <form align="right" action="/add_bill">
+    <button type="submit">Add Bill</button>
+  </form>
 {% endblock %}

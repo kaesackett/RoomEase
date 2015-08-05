@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  <h3>Add a New Bill</h3>
+  <form action="/add_bill_handler">
+    <label for="description">Description: </label>
+      <input type="text" name="description" id="description" placeholder="Ex: Water, Power, Cable..."><br>
+    <label for="due_date">Due Date: </label>
+      <input type="text" name="due_date" id="due_date" placeholder="MM/DD/YYYY"><br>
+    <label for="amount">Amount: </label>
+      <input type="text" name="amount" id="amount" placeholder="$..."><br>
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

@@ -28,11 +28,13 @@ client = TwilioRestClient(account, token)
 @app.route("/", methods=["GET", "POST"])
 def index():
 	"""Return homepage."""
+
 	return render_template("index.html")
 
 @app.route("/sign_up")
 def show_signup_page():
     """Allow the user access to the form that they can use to register for my site."""
+
     return render_template("sign_up.html")
 
 @app.route('/sign_up_handler', methods=["POST"])
@@ -107,6 +109,28 @@ def bill_list():
         return render_template("bill_list.html", bills=bills)
     else:
         return render_template("nope.html")
+
+@app.route("/add_bill")
+def show_add_bill_page():
+    """Show user the form used to enter a new bill into the database."""
+
+    return render_template("add_bill.html")
+
+@app.route("/add_bill_handler")
+def add_bill():
+    """Insert a new bill into the database."""
+
+    description = request.args.get("description")
+    due_date = request.args.get("due_date")
+    amount = request.args.get("amount")
+    # Get house_id from the user in session
+    user = User.query.filter_by(email=session["email"]).one()
+    house_id = user.house_id
+
+    new_bill = Bill(description=description, due_date=due_date, amount=amount, house_id=house_id)
+    db.session.add(new_bill)
+    db.session.commit()
+    return redirect('/bills')
 
 @app.route("/roomies")
 def roomie_list():
