@@ -81,10 +81,15 @@ class User_Payment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
     def calculate_user_portion(self):
-        pass
-        # THIS FUNCTION WILL QUERY TO COUNT ALL OF THE USERS IN A HOUSE
-        # THEN DIVIDE THE AMOUNT OF SOME BILL BY THAT COUNT
-        # TO PROVIDE THEM WITH THE PORTION THEY ARE PERSONALLY RESPONSIBLE FOR
+        """This function will query to count all of the users in a house,
+        then divide the total amount of a given bill by that count
+        to return the portion of the bill each user is personally responsible for."""
+
+        bill = Bill.query.filter_by(bill_id=bill_id).one()
+        count = User.query.filter_by(house_id=house_id).count()
+        user_portion = (bill.amount/count)
+        
+        return user_portion
 
     def __repr__(self):
         """Provide helpful representation when printed."""

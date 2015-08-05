@@ -1,4 +1,4 @@
-from model import User, House, Bill, connect_to_db, db
+from model import User, House, Bill, User_Payment, connect_to_db, db
 from server import app
 
 def load_users():
@@ -12,7 +12,7 @@ def load_users():
         name = split_line[3]
         house_id = split_line[4]
         phone = split_line[5]
-        new_user = User(user_id=user_id, email=email, password=password, name=name, house_id=house_id, phone=phone)
+        new_user = User(email=email, password=password, name=name, house_id=house_id, phone=phone)
         db.session.add(new_user)
     db.session.commit()
 

@@ -9,12 +9,14 @@
 
   <h3>Bills</h3>
 
-  <div id="accordion">
+  <div>
     {% for bill in bills %}
+    {% set user_portion = bill.amount / count %}
       <h4>{{bill.description}}</h4>
-        <div class="group">
+        <div>
           <p>
-            Amount: ${{"%0.2f" | format(bill.amount)}}<br>
+            Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}<br>
+            Your Portion: {{user_portion}}<br>
             Due Date: {{bill.due_date}}
           </p>
         </div>
@@ -24,27 +26,3 @@
     <button type="submit">Add Bill</button>
   </form>
 {% endblock %}
-
-<script>
-  $(function() {
-    $("div#accordion")
-      .accordion({
-        header: "> div > h3"
-      })
-      .sortable({
-        axis: "y",
-        handle: "h3",
-        stop: function( event, ui ) {
-          ui.item.children( "h3" ).triggerHandler( "focusout" ); 
-          // Refresh accordion to handle new order
-          $( this ).accordion( "refresh" );
-        }
-      });
-  });
-</script>
-
-<script>
-$(function() {
-  $( "#accordion" ).accordion();
-});
-</script>
