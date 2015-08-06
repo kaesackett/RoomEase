@@ -64,11 +64,12 @@ class Bill(db.Model):
     due_date = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(20), nullable=False)
+    paid = db.Column(db.Boolean, default=False, nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Bill bill_id=%s house_id=%s description=%s due_date=%s amount=%s>" % (self.bill_id, self.house_id, self.description, self.due_date, self.amount)
+        return "<Bill bill_id=%s house_id=%s description=%s due_date=%s amount=%s paid=%s>" % (self.bill_id, self.house_id, self.description, self.due_date, self.amount, self.paid)
 
 class User_Payment(db.Model):
     """Model to track who's paid what from the perspective of an individual user."""
@@ -80,6 +81,7 @@ class User_Payment(db.Model):
     bill_id = db.Column(db.Integer, ForeignKey('bills.bill_id'), nullable=False)
     amount = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
+    paid = db.Column(db.Boolean, default=False, nullable=False)
 
     def calculate_user_portion(self):
         """This function will query to count all of the users in a house,

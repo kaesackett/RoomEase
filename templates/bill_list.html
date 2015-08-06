@@ -7,9 +7,14 @@
 
 {% block content %}
 
-  <h3>Bills</h3>
-
+  <h3>Bills for Your House</h3>
+    <ul>
+    {% for bill in house_bills %}
+      <li>Description: {{bill.description}}, Total: {{bill.amount}}</li>
+    {% endfor %}
+    </ul>
   <div>
+    <h3>Your Unpaid Bills</h3>
     {% for bill in bills %}
     {% set user_portion = bill.amount / count %}
       <h4>{{bill.description}}</h4>

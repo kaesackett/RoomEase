@@ -103,14 +103,12 @@ def bill_list():
     if session:
         user = User.query.filter_by(email=session["email"]).one()
         house_id = user.house_id
-        house_bills = Bill.query.filter_by(house_id=house_id).all()
-        bills = User_Payment.query.filter_by(user_id=user.user_id).all()
+        house_bills = Bill.query.filter_by(house_id=house_id, paid=False).all()
+        bills = User_Payment.query.filter_by(user_id=user.user_id, paid=False).all()
         for bill in bills:
             bill2 = Bill.query.filter_by(bill_id=bill.bill_id).one()
             bill.description = bill2.description
             bill.due_date = bill2.due_date
-        print bill.description
-        print bill.due_date
         count = User.query.filter_by(house_id=house_id).count()
         return render_template("bill_list.html", bills=bills, house_bills=house_bills, count=count)
     else:
@@ -139,8 +137,9 @@ def add_bill():
     new_bill = Bill(description=description, due_date=due_date, amount=amount, house_id=house_id)
     db.session.add(new_bill)
     db.session.commit()
-    new_user_payment = User_Payment(amount=amount, user_id=user.user_id, bill_id=new_bill.bill_id)
-    db.session.add(new_user_payment)
+    for user in User.query.filter_by(house_id=house_id).all():
+        new_user_payment = User_Payment(amount=amount, user_id=user.user_id, bill_id=new_bill.bill_id)
+        db.session.add(new_user_payment)
     db.session.commit()
     return redirect('/bills')
 
@@ -163,11 +162,15 @@ def edit_bill():
     """Perform the deletion actions initiated by the form submitted in the /edit_bills route."""
 
     user = User.query.filter_by(email=session["email"]).one()
-    user_bills = User_Payment.query.filter_by(user_id=user.user_id)
-    for bill in user_bills:
-        if request.args.get(str(bill.bill_id)):
-            db.session.delete(bill)
+    bill_id = request.args.get("bill_id")
+    user_payment = User_Payment.query.filter_by(user_id=user.user_id, bill_id=bill_id).one()
+    user_payment.paid = True
     db.session.commit()
+    if not User_Payment.query.filter_by(bill_id=bill_id, paid=False).all():
+        bill_to_be_paid = Bill.query.filter_by(bill_id=bill_id).one()
+        bill_to_be_paid.paid = True
+    db.session.commit()
+
     return redirect("/bills")
 
 @app.route("/roomies")
@@ -197,4 +200,5 @@ if __name__ == "__main__":
     # Use the DebugToolbar
     DebugToolbarExtension(app)
     connect_to_db(app)
+    # CHECK DUE DATES FUNCTION COULD GO HERE FOR TESTING PURPOSES
     app.run()
