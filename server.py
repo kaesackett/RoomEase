@@ -7,8 +7,10 @@ other useful stuff.
 Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 """
 
+import datetime
 import jinja2
 import os
+from utils import send_text_reminder
 from flask import Flask, request, render_template, redirect, flash, session
 from model import User, House, Bill, User_Payment, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
@@ -28,7 +30,9 @@ client = TwilioRestClient(account, token)
 @app.route("/", methods=["GET", "POST"])
 def index():
     """Return homepage."""
-
+    
+    if session.get("email"):
+        send_text_reminder(session["email"], client)
     return render_template("index.html")
 
 @app.route("/sign_up")
@@ -128,7 +132,7 @@ def add_bill():
     """Insert a new bill into the database."""
 
     description = request.args.get("description")
-    due_date = request.args.get("due_date")
+    due_date = datetime.datetime.strptime(request.args.get("due_date"), "%Y-%m-%d")
     amount = request.args.get("amount")
     # Get house_id from the user in session
     user = User.query.filter_by(email=session["email"]).one()
@@ -200,5 +204,4 @@ if __name__ == "__main__":
     # Use the DebugToolbar
     DebugToolbarExtension(app)
     connect_to_db(app)
-    # CHECK DUE DATES FUNCTION COULD GO HERE FOR TESTING PURPOSES
     app.run()

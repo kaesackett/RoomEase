@@ -61,7 +61,7 @@ class Bill(db.Model):
 
     bill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     house_id = db.Column(db.Integer, ForeignKey('houses.house_id'), nullable=False)
-    due_date = db.Column(db.String, nullable=False)
+    due_date = db.Column(db.Date, nullable=False)
     amount = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(20), nullable=False)
     paid = db.Column(db.Boolean, default=False, nullable=False)
