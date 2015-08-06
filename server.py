@@ -10,10 +10,9 @@ Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 import jinja2
 import os
 from flask import Flask, request, render_template, redirect, flash, session
-from sqlalchemy import func
+from model import User, House, Bill, User_Payment, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
 from twilio.rest import TwilioRestClient
-from model import User, House, Bill, User_Payment, connect_to_db, db
 
 app = Flask(__name__)
 
@@ -28,9 +27,9 @@ client = TwilioRestClient(account, token)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-	"""Return homepage."""
+    """Return homepage."""
 
-	return render_template("index.html")
+    return render_template("index.html")
 
 @app.route("/sign_up")
 def show_signup_page():
@@ -106,12 +105,6 @@ def bill_list():
         house_id = user.house_id
         bills = Bill.query.filter_by(house_id=house_id).all()
         count = User.query.filter_by(house_id=house_id).count()
-        # Add the user portion of each bill to the User-Payment table
-        for bill in bills:
-            if not User_Payment.query.filter_by(bill_id=bill.bill_id, user_id=user.user_id).first():
-                new_user_payment = User_Payment(bill_id=bill.bill_id, user_id=user.user_id, amount=(bill.amount/count))
-                db.session.add(new_user_payment)
-        db.session.commit()
         return render_template("bill_list.html", bills=bills, count=count)
     else:
         return render_template("nope.html")
@@ -120,6 +113,9 @@ def bill_list():
 def show_add_bill_page():
     """Show user the form used to enter a new bill into the database."""
 
+    user = User.query.filter_by(email=session["email"]).one()
+    house_id = user.house_id
+    bills = Bill.query.filter_by(house_id=house_id).all()
     return render_template("add_bill.html")
 
 @app.route("/add_bill_handler")
@@ -136,7 +132,27 @@ def add_bill():
     new_bill = Bill(description=description, due_date=due_date, amount=amount, house_id=house_id)
     db.session.add(new_bill)
     db.session.commit()
+    new_user_payment = User_Payment(amount=amount, user_id=user.user_id, bill_id=new_bill.bill_id)
+    db.session.add(new_user_payment)
+    db.session.commit()
     return redirect('/bills')
+
+@app.route("/edit_bills")
+def show_edit_bill_page():
+    """Show the user the form used to delete bills from the database by indicating that they have been paid."""
+
+    user = User.query.filter_by(email=session["email"]).one()
+    house_id = user.house_id
+    bills = Bill.query.filter_by(house_id=house_id).all()
+    count = User.query.filter_by(house_id=house_id).count()
+    return render_template("edit_bills.html", bills=bills, count=count)
+
+@app.route("/edit_bill_handler")
+def edit_bill():
+    """Perform the deletion actions initiated by the form submitted in the /edit_bills route."""
+
+    
+    return redirect("/bills")
 
 @app.route("/roomies")
 def roomie_list():

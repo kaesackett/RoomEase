@@ -13,19 +13,16 @@
     {% for bill in bills %}
     {% set user_portion = bill.amount / count %}
       <h4>{{bill.description}}</h4>
-        <div>
-          <p>
+        <div class="row">
+          <p class="col-md-6">
             Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}<br>
-            Your Portion: ${{"%0.2f" | format(user_portion)}}<br>
+            Your Portion: {{user_portion}}<br>
             Due Date: {{bill.due_date}}
           </p>
+          <form class="col-md-6" align="right" action="/edit_bill_handler">
+            <input type="checkbox" name="{{bill.bill_id}}" value="{{bill.bill_id}}">Paid
+            <button type="submit">Submit Changes</button>
+          </form>  
         </div>
     {% endfor %}
-  </div>
-  <form align="right" action="/add_bill">
-    <button type="submit">Add Bill</button>
-  </form>
-  <form align="right" action="/edit_bills">
-    <button type="submit">Edit Bills</button>
-  </form>
 {% endblock %}

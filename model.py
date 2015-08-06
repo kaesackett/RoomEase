@@ -47,10 +47,10 @@ class House(db.Model):
 
         return "<House house_id=%s address=%s>" % (self.house_id, self.address)
 
-	# Define relationship to user
+    # Define relationship to user
     users = db.relationship("User", backref=db.backref("house", order_by=house_id))
 
-	# Define relationship to bill
+    # Define relationship to bill
     bills = db.relationship("Bill", backref=db.backref("house", order_by=house_id))
 
 class Bill(db.Model):
