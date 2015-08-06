@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 import datetime
 
 db = SQLAlchemy()
@@ -100,7 +101,7 @@ class User_Payment(db.Model):
     user = db.relationship("User", backref=db.backref("user_payments", order_by=bill_id))
 
     # Define relationship to bill
-    bill = db.relationship("Bill", backref=db.backref("user_payments", order_by=bill_id))
+    bill = db.relationship("Bill", backref=db.backref("bills", order_by=bill_id))
 
 ##############################################################################
 # Helper functions
