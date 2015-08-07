@@ -2,3 +2,4 @@ env
 bootstrap
 *.pyc
 secrets.sh
+static/js

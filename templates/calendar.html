@@ -1,4 +1,44 @@
 {% extends "base.html" %}
+{% block head %}
+
+<!--FullCalendar Dependencies-->
+<link href='static/js/fullcalendar.css' rel='stylesheet'>
+<link href='static/js/fullcalendar.print.css' rel='stylesheet' media='print'>
+<script src='static/js/lib/moment.min.js'></script>
+
+<!--FullCalendar-->
+<script src='static/js/fullcalendar.min.js'></script>
+
+<!-- Initialize the Calendar on Document Ready -->
+<script>
+$(document).ready(function() {
+	$('#calendar').fullCalendar({
+		editable: true,
+		aspectRatio: 2.65,
+		events: [
+			{
+				title: 'All Day Event',
+				start: '2014-06-01'
+			},
+			{
+				title: 'Long Event',
+				start: '2014-06-07',
+				end: '2014-06-10'
+			}
+		]
+	});
+});
+</script>
+
+<style>
+	#calendar {
+		width: 95%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
+{% endblock %}
+
 {% block content %}
-Calendar goes here!
+<div id="calendar"></div>
 {% endblock %}

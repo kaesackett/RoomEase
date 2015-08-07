@@ -1,124 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- JQuery Source -->
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	
-	<style>
-	  #logo {
-	  	padding: 1px;
-	  	width:50px;
-	  	height:50px;
-	  }
+  <!-- Bootstrap Source -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-	  #navmaster {
-	  	padding: 3px;
-	  	padding-top: 2px;
-	  }
+  <script>
+    function showLogin(){
+      $('div#login_modal').attr('style', 'display: block;');
+    };
 
-      #body {
-        background-color: lightgrey;
-      }
+    $('button#showLogin').on('click', showLogin);
+  </script>
 
-      footer {
-        text-align: center;
-      }
-	</style>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  
+  {% block head %}
+  {% endblock %}
+  
+  <style>
+    #logo {
+      padding: 1px;
+      width:50px;
+      height:50px;
+    }
 
-  <div id="navmaster">
-	<nav class="navbar navbar-default img-rounded">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-		      <a href="/"> <img id="logo" class="navbar-brand" href="#" src="./static/images/newlogo.png"></a>
-	    </div>
+    #navmaster {
+      padding: 3px;
+      padding-top: 2px;
+    }
 
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="/calendar">Calendar<span class="sr-only">(current)</span></a></li>
-	        <li><a href="/roomies">Roomies</a></li>
-	        <li><a href="/bills">Bills</a></li>
-	      </ul>
-	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="/my_profile">My Profile</a></li>
-			{% if 'email' not in session %}
-            <li>
-              <button id="showLogin">Log In</button>
-            </li>
-        	{% else %}
-        	<li>
-              <form action="/logout" method="POST">
-              	<input type="submit" value="Log Out">
-              </form>
-            </li>
-			{% endif %}
+    header {
+      height: 100%;
+    }
 
-	        <li class="dropdown"></li>
-	      </ul>
-	    </div>
-	  </div>
-	</nav>
-  </div>
+    footer {
+      text-align: center;
+    }
+  </style>
+
 </head>
+
 <body>
+  <header>
+    <div id="navmaster">
+      <nav class="navbar navbar-default img-rounded">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+              <a href="/"> <img id="logo" class="navbar-brand" href="#" src="./static/images/newlogo.png"></a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/calendar">Calendar<span class="sr-only">(current)</span></a></li>
+              <li><a href="/roomies">Roomies</a></li>
+              <li><a href="/bills">Bills</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/my_profile">My Profile</a></li>
+          {% if 'email' not in session %}
+                <li>
+                  <button id="showLogin">Log In</button>
+                </li>
+              {% else %}
+              <li>
+                  <form action="/logout" method="POST">
+                    <input type="submit" value="Log Out">
+                  </form>
+                </li>
+          {% endif %}
+
+              <li class="dropdown"></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   <ul>
     {% for message in get_flashed_messages() %}
       <li>{{ message }}</li>
     {% endfor %}
   </ul>
-<div id="login_modal" class="modal fade main-image-modal in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-body text-center">
-		<form id="loginform" name="loginform" method="POST" action="/login_handler">
-      	  <label for="email">Email:</label>
-      		<input type="text" name="email" id="email" class="txtfield" tabindex="1"> 
-      	  <label for="password">Password:</label>
-      		<input type="password" name="password" id="password" class="txtfield" tabindex="2">
-      	  <div class="center">
-      	  	<input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3">
-      	  </div>
-      	  <a href="/sign_up">Click Here to Register</a>
-    	</form>
+  
+  <div id="login_modal" class="modal fade main-image-modal in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+      <form id="loginform" name="loginform" method="POST" action="/login_handler">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" class="txtfield img-rounded" tabindex="1"> 
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" class="txtfield img-rounded" tabindex="2">
+            <div class="center">
+              <input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3">
+            </div>
+            <a href="/sign_up">Click Here to Register</a>
+        </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div id="body" class="fluid-container img-rounded">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer>
+    <nav class="navbar navbar-default navbar-fixed-bottom img-rounded">
+      <div class="container">
+        <p class="text-muted">Created by <strong>Kae Sackett</strong> at Hackbright XI.
+          <a href="http://www.github.com/kaesackett">GitHub</a> | 
+          <a href="http://www.linkedin.com/kaesackett">LinkedIn</a> | 
+          <a href="/myresumefilepath">Resume</a>
+        </p>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
-<div id="body" class="fluid-container img-rounded">
-  {% block content %}
-  {% endblock %}
-</div>
-<!-- JQuery Source -->
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<!-- Bootstrap Source -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<script>
-function showLogin(){
-	$('div#login_modal').attr('style', 'display: block;');
-};
-
-$('button#showLogin').on('click', showLogin);
-</script>
-
+    </nav>
+  </footer>
 </body>
-
-<footer>
-  <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-      <p class="text-muted">Created by <strong>Kae Sackett</strong> at Hackbright XI.
-        <a href="http://www.github.com/kaesackett">GitHub</a> | 
-        <a href="http://www.linkedin.com/kaesackett">LinkedIn</a> | 
-        <a href="/myresumefilepath">Resume</a>
-      </p>
-    </div>
-  </nav>
-</footer>
 </html>
