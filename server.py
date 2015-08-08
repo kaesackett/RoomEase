@@ -11,7 +11,7 @@ import datetime
 import jinja2
 import os
 from utils import send_text_reminder
-from flask import Flask, request, render_template, redirect, flash, session
+from flask import Flask, request, render_template, redirect, flash, session, jsonify
 from model import User, House, Bill, User_Payment, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
 from twilio.rest import TwilioRestClient
@@ -96,6 +96,15 @@ def show_calendar():
     """Show the user the group calendar for their house."""
 
     if session:
+        # I'm guessing a function to query the database 
+        # and bring back bill due dates as a JSON object will go here
+        user = User.query.filter_by(email=session["email"]).one()
+        house_id = user.house_id
+        house_bills = Bill.query.filter_by(house_id=house_id, paid=False).all()
+        bills_dict = {}
+        for bill in house_bills:
+            bills_dict[bill.description] = bill.due_date
+        print bills_dict
         return render_template("calendar.html")
     else:
         return render_template("nope.html")

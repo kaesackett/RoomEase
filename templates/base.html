@@ -7,14 +7,6 @@
   <!-- Bootstrap Source -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <script>
-    function showLogin(){
-      $('div#login_modal').attr('style', 'display: block;');
-    };
-
-    $('button#showLogin').on('click', showLogin);
-  </script>
-
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   
   {% block head %}
@@ -68,7 +60,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/my_profile">My Profile</a></li>
-          {% if 'email' not in session %}
+              {% if 'email' not in session %}
                 <li>
                   <button id="showLogin">Log In</button>
                 </li>
@@ -129,5 +121,15 @@
       </div>
     </nav>
   </footer>
+
+  <script>
+    function showLogin(){
+      $('div#login_modal').attr('style', 'display: block;');
+    };
+
+    $('button#showLogin').on('click', showLogin);
+  </script>
+
+
 </body>
 </html>
