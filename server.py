@@ -96,19 +96,21 @@ def show_calendar():
     """Show the user the group calendar for their house."""
 
     if session:
-        # I'm guessing a function to query the database 
-        # and bring back bill due dates as a JSON object will go here
-        user = User.query.filter_by(email=session["email"]).one()
-        house_id = user.house_id
-        house_bills = Bill.query.filter_by(house_id=house_id, paid=False).all()
-        bills_dict = {}
-        for bill in house_bills:
-            bills_dict[bill.description] = bill.due_date
-        print bills_dict
         return render_template("calendar.html")
     else:
         return render_template("nope.html")
 
+@app.route("/calendar/events")
+def create_events():
+    """Queries the database for due dates of unpaid bills and creates calendar events for them."""
+
+    user = User.query.filter_by(email=session["email"]).one()
+    house_id = user.house_id
+    house_bills = Bill.query.filter_by(house_id=house_id, paid=False).all()
+    bills_dict = {}
+    for bill in house_bills:
+        bills_dict[bill.description] = datetime.datetime.strftime(bill.due_date, "%Y-%m-%d")
+    return jsonify(bills_dict)
 @app.route("/bills")
 def bill_list():
     """Show list of bills."""

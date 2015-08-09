@@ -12,20 +12,20 @@
 <!-- Initialize the Calendar on Document Ready -->
 <script>
 $(document).ready(function() {
-	$('#calendar').fullCalendar({
-		editable: false,
-		aspectRatio: 2.65,
-		events: [
-			{
-				title: 'All Day Event',
-				start: '2014-06-01'
-			},
-			{
-				title: 'Long Event',
-				start: '2014-06-07',
-				end: '2014-06-10'
-			}
-		]
+	$.get('/calendar/events', function(data) {
+		var myEvents = [];
+			for (bill in data) {
+				var myNewObject = {
+					title: bill,
+					start: data[bill]
+				};
+				myEvents.push(myNewObject);
+				};
+		$('#calendar').fullCalendar({
+			editable: false,
+			aspectRatio: 2.65,
+			events: myEvents
+		});
 	});
 });
 </script>
