@@ -5,4 +5,9 @@
         <li>{{roommate.name}}, {{roommate.phone}}</li>
     {% endfor %}
     </ul>
+
+    <form action="/message_handler">
+    	<input type="text" name="content" placeholder="Enter a Message...">
+    	<button type="submit">Send</button>
+    </form>
 {% endblock %}

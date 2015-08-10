@@ -105,6 +105,21 @@ class User_Payment(db.Model):
     # Define relationship to bill
     bill = db.relationship("Bill", backref=db.backref("bills", order_by=bill_id))
 
+class Message(db.Model):
+    """Model for the table which will contain messages sent via the message board."""
+
+    __tablename__ = "messages"
+
+    message_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    content = db.Column(db.String(140), nullable=False)
+
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Message user_id=%s message_id=%s created_at=%s>" % (self.user_id, self.message_id, self.created_at)
 ##############################################################################
 # Helper functions
 

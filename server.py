@@ -12,7 +12,7 @@ import jinja2
 import os
 from utils import send_text_reminder
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
-from model import User, House, Bill, User_Payment, connect_to_db, db
+from model import User, House, Bill, User_Payment, Message, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
 from twilio.rest import TwilioRestClient
 
@@ -199,6 +199,21 @@ def roomie_list():
         return render_template("roomie_list.html", roommates=roommates)
     else:
         return render_template("nope.html")
+
+@app.route("/message_handler")
+def add_message():
+    """Gets a message as input from a form on the message board page and 
+    commits that message along with relevant sender info to the database."""
+
+    user = User.query.filter_by(email=session["email"]).one()
+    user_id = user.user_id
+    content = request.args.get('content')
+    created_at = datetime.datetime.now()
+    new_message = Message(user_id=user_id, content=content, created_at=created_at)
+    db.session.add(new_message)
+    db.session.commit()
+    print new_message
+    return redirect("/roomies")
 
 @app.route("/my_profile")
 def my_profile():
