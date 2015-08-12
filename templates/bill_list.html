@@ -21,13 +21,14 @@
           <ul class="nav nav-stacked" id="accordion2">
             {% for bill in bills %}
             {% set user_portion = bill.amount / count %}
-              <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion2" href="#secondLink">{{bill.description}}</a>
-                <ul id="secondLink" class="collapse">
+              <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{count}}" href="#Link{{count}}">{{bill.description}}</a>
+                <ul id="Link{{count}}" class="collapse">
                   <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
                   <li>Your Portion: ${{"%0.2f" | format(user_portion)}}</li>
                   <li>Due Date: {{bill.due_date}}</li>
                 </ul>
               </li>
+            {% set count = count + 1 %}
             {% endfor %}
           </ul>
         </div>  
