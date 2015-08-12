@@ -16,3 +16,58 @@
 	background-color: #e7e7e7;
 	margin-bottom: 4px;
 }
+
+#listContainer {
+	width: 1300px;
+	margin: auto;
+	padding: 5px;
+	color: white;
+	background: rgba(240, 173, 78, 0.8);
+}
+
+#billButton {
+	color: white;
+	font-weight: bold;
+	border: solid 1px white;
+}
+
+#logo {
+  padding: 1px;
+  width:50px;
+  height:50px;
+}
+
+#navmaster {
+  padding: 3px;
+  padding-bottom: 0px;
+}
+
+.navbar {
+  padding: 0px;
+}
+
+#jumbotron {
+	width: 100%;
+	color: white;
+	background: rgba(240, 173, 78, 0.7);
+}
+
+#calendar {
+	width: 95%;
+	margin: auto;
+	margin-top: 0px;
+	background-color: white;
+	padding: 0px;
+}
+
+body {
+	padding: 0px;
+	background-image: url("/static/images/painted-ladies.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+footer {
+  text-align: center;
+}

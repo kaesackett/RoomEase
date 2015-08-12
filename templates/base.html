@@ -11,54 +11,33 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="/static/css/style.css">
-  <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Arvo' type='text/css'>
   
   {% block head %}
   {% endblock %}
-  
-  <style>
-    #logo {
-      padding: 1px;
-      width:50px;
-      height:50px;
-    }
-
-    #navmaster {
-      padding: 3px;
-      padding-top: 2px;
-    }
-
-    header {
-      height: 100%;
-    }
-
-    footer {
-      text-align: center;
-    }
-  </style>
-
 </head>
 
 <body>
+  <!-- Navbar -->
   <header>
     <div id="navmaster">
-      <nav class="navbar navbar-default img-rounded">
+      <nav class="navbar navbar-default img-rounded page-content">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <div class="navbar-header nav-pills">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-              <a href="/"> <img id="logo" class="navbar-brand" href="#" src="./static/images/newlogo.png"></a>
+              <a class="navbar-brand" style="color: #f0ad4e;" href="/"><strong>RoomEase</strong></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/calendar">Calendar<span class="sr-only">(current)</span></a></li>
+              <li><a href="/calendar">Calendar<span class="sr-only">(current)</span></a></li>
               <li><a href="/roomies">Roomies</a></li>
               <li><a href="/bills">Bills</a></li>
             </ul>
@@ -84,12 +63,14 @@
     </div>
   </header>
 
+  <!-- Flashed Messages -->
   <ul>
     {% for message in get_flashed_messages() %}
       <li>{{ message }}</li>
     {% endfor %}
   </ul>
   
+  <!-- Modal Login Window -->
   <div id="login_modal" class="modal fade main-image-modal in" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -106,11 +87,8 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
-
-  <div id="body" class="fluid-container page-content">
-    {% block content %}
-    {% endblock %}
-  </div>
+  {% block content %}
+  {% endblock %}
 
   <footer>
     <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#f0ad4e;">
@@ -130,8 +108,16 @@
     };
 
     $('button#showLogin').on('click', showLogin);
+
+
+    $(function() {
+       $("li").click(function() {
+          // remove classes from all
+          $("li").removeClass("active");
+          // add class to the one we just clicked
+          $(this).addClass("active");
+      });
+    });
   </script>
-
-
 </body>
 </html>

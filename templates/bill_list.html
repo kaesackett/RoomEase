@@ -2,44 +2,45 @@
 
 
 {% block content %}
-<div class="row">
+<div class="img-rounded" id="listContainer">
+  <div class="row page-content">
     <div class="col-xs-6">
-      <h1>Bills for Your House</h1>
-        <ul class="nav nav-stacked" id="accordion1">
+      <h1 style="color:black;">Bills for Your House</h1>
+        <ul class="nav nav-stacked" style="color:black;" id="accordion1">
           {% for bill in house_bills %}
-            <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{bill.bill_id}}" href="#Link{{bill.bill_id}}">{{bill.description}}</a>
+            <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{bill.bill_id}}" href="#Link{{bill.bill_id}}"><strong>{{bill.description}}</strong></a>
               <ul id="Link{{bill.bill_id}}" class="collapse">
                   <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
                   <li>Due Date: {{bill.due_date}}</li>
               </ul>
-            </li>
+           </li>
           {% endfor %}
         </ul>
     </div>
     <div class="col-xs-6">
-      <h1>Your Unpaid Bills</h1>
-          <ul class="nav nav-stacked" id="accordion2">
-            {% for bill in bills %}
-            {% set user_portion = bill.amount / count %}
-              <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{count}}" href="#Link{{count}}">{{bill.description}}</a>
-                <ul id="Link{{count}}" class="collapse">
-                  <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
-                  <li>Your Portion: ${{"%0.2f" | format(user_portion)}}</li>
-                  <li>Due Date: {{bill.due_date}}</li>
-                </ul>
-              </li>
-            {% set count = count + 1 %}
-            {% endfor %}
-          </ul>
-        </div>  
-    </div>
-</div>
-<div> 
-  <form align="right" action="/add_bill">
-    <button class="btn btn-warning" type="submit">Add Bill</button>
-  </form>
-  <form align="right" action="/edit_bills">
-    <button class="btn btn-warning" type="submit">Edit Bills</button>
-  </form>
+      <h1 style="color:black;">Your Unpaid Bills</h1>
+        <ul class="nav nav-stacked" id="accordion2">
+          {% for bill in bills %}
+          {% set user_portion = bill.amount / count %}
+            <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{count}}" href="#Link{{count}}"><strong>{{bill.description}}</strong></a>
+              <ul id="Link{{count}}" style="color:black;" class="collapse">
+                <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
+                <li>Your Portion: ${{"%0.2f" | format(user_portion)}}</li>
+                <li>Due Date: {{bill.due_date}}</li>
+              </ul>
+            </li>
+          {% set count = count + 1 %}
+          {% endfor %}
+        </ul>
+    </div>  
+  </div>
+  <div align="right"> 
+    <form style="padding: 1px; display: inline" action="/add_bill">
+      <button class="btn btn-warning" id="billButton" type="submit">Add Bill</button>
+    </form>
+    <form style="padding: 1px; display: inline" action="/edit_bills">
+      <button class="btn btn-warning" id="billButton" type="submit">Edit Bills</button>
+    </form>
+  </div>
 </div>
 {% endblock %}

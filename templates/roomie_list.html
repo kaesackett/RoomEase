@@ -4,13 +4,10 @@
 	<div class="page-content">
 	    <ul class="list-group">
 	    {% for roommate in roommates %}
-	        <li class="list-group-item">{{roommate.name}}, {{roommate.phone}}</li>
+	        <li style="background: rgba(240, 173, 78, 0.8); border: 1px solid white;" class="list-group-item">{{roommate.name}}, <span id="phone">{{roommate.phone}}</span></li>
 	    {% endfor %}
 	    </ul>
     </div>
-
-
-
 
 	<script>
 	// var checkMessages = function () {

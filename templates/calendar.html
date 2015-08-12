@@ -25,22 +25,15 @@ $(document).ready(function() {
 				};
 		$('#calendar').fullCalendar({
 			editable: false,
-			aspectRatio: 2.75,
+			aspectRatio: 3,
 			events: myEvents
 		});
 	});
 });
 </script>
 
-<style>
-	#calendar {
-		width: 95%;
-		margin-left: auto;
-		margin-right: auto;
-	}
-</style>
 {% endblock %}
 
 {% block content %}
-<div class="page-content" id="calendar"></div>
+<div class="page-content img-rounded" id="calendar"></div>
 {% endblock %}
