@@ -4,16 +4,19 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="/static/css/style.css">
+
 
 {% block content %}
-
+<div class="page-content">
   <h3>Bills</h3>
 
   <div>
     {% for bill in bills %}
     {% set user_portion = bill.amount / count %}
-      <h4>{{bill.description}}</h4>
-        <div class="row">
+      <div class="img-rounded" id="editBillList">
+      <h4 style="margin: 5px;">{{bill.description}}</h4>
+        <div style="margin: 5px;" class="row">
           <p class="col-md-6">
             Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}<br>
             Your Portion: {{user_portion}}<br>
@@ -21,8 +24,10 @@
           </p>
           <form class="col-md-6" align="right" action="/edit_bill_handler">
             <input type="checkbox" name="bill_id" value="{{bill.bill_id}}">Paid
-            <button type="submit">Submit Changes</button>
+            <button class="btn btn-warning" type="submit">Submit Changes</button>
           </form>  
         </div>
+      </div>
     {% endfor %}
+</div>
 {% endblock %}

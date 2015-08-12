@@ -1,0 +1,18 @@
+.page-content {
+	margin: 15px;
+	font-family: 'Arvo', serif;
+}
+
+#email, #password, #name, #address, #phone, #loginbtn {
+	margin-bottom: 5px;
+}
+
+#showLogin, #logout {
+	margin: 7px;
+}
+
+#editBillList {
+	border: 1pt solid black;
+	background-color: #e7e7e7;
+	margin-bottom: 4px;
+}

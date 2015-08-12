@@ -111,6 +111,7 @@ def create_events():
     for bill in house_bills:
         bills_dict[bill.description] = datetime.datetime.strftime(bill.due_date, "%Y-%m-%d")
     return jsonify(bills_dict)
+
 @app.route("/bills")
 def bill_list():
     """Show list of bills."""
@@ -206,14 +207,19 @@ def add_message():
     commits that message along with relevant sender info to the database."""
 
     user = User.query.filter_by(email=session["email"]).one()
-    user_id = user.user_id
+    house_id = user.house_id
     content = request.args.get('content')
     created_at = datetime.datetime.now()
     new_message = Message(user_id=user_id, content=content, created_at=created_at)
     db.session.add(new_message)
     db.session.commit()
-    print new_message
-    return redirect("/roomies")
+
+    roommate_ids = []
+    roommates = User.query.filter_by(house_id=house_id).all()
+    for roommate in roommates:
+        roommate_ids.append(roommate.user_id)
+    house_messages = Message.query.filter(user_id in roommate_ids).all()
+    return house_messages
 
 @app.route("/my_profile")
 def my_profile():
@@ -226,8 +232,8 @@ def my_profile():
         return render_template("nope.html")
 
 if __name__ == "__main__":
-    app.debug = True
-    # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # app.debug = True
+    # # Use the DebugToolbar
+    # DebugToolbarExtension(app)
     connect_to_db(app)
     app.run()

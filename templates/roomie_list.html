@@ -1,13 +1,27 @@
 {% extends "base.html" %}
-{% block content %}
-    <ul>
-    {% for roommate in roommates %}
-        <li>{{roommate.name}}, {{roommate.phone}}</li>
-    {% endfor %}
-    </ul>
 
-    <form action="/message_handler">
-    	<input type="text" name="content" placeholder="Enter a Message...">
-    	<button type="submit">Send</button>
-    </form>
+{% block content %}
+	<div class="page-content">
+	    <ul class="list-group">
+	    {% for roommate in roommates %}
+	        <li class="list-group-item">{{roommate.name}}, {{roommate.phone}}</li>
+	    {% endfor %}
+	    </ul>
+    </div>
+
+
+
+
+	<script>
+	// var checkMessages = function () {
+	// 	$.get('/check_new_messages', function (data) {
+	// 		console.log(data);
+	// 		for (message in data) {
+	// 			$('#messages').append(data[message])
+	// 			$('#messages').append("<br>")
+	// 			};
+	// 		});
+	// 	};
+	// $('#messages').on('click', checkMessages)
+	</script>
 {% endblock %}

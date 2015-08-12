@@ -5,4 +5,3 @@
 5|marcyrh@gmail.com|actualpassword|Marcy|2|2565537442
 6|rachael@gmail.com|actualpassword|Rachael|2|2566347235
 7|victoria@gmail.com|actualpassword|Victoria|2|2564539811
-8|taco@gmail.com|123|Space Taco|3|5555555555

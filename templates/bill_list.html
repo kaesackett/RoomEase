@@ -1,36 +1,44 @@
 {% extends "base.html" %}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 
 {% block content %}
-
-  <h3>Bills for Your House</h3>
-    <ul>
-    {% for bill in house_bills %}
-      <li>Description: {{bill.description}}, Total: {{bill.amount}}</li>
-    {% endfor %}
-    </ul>
-  <div>
-    <h3>Your Unpaid Bills</h3>
-    {% for bill in bills %}
-    {% set user_portion = bill.amount / count %}
-      <h4>{{bill.description}}</h4>
-        <div>
-          <p>
-            Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}<br>
-            Your Portion: ${{"%0.2f" | format(user_portion)}}<br>
-            Due Date: {{bill.due_date}}
-          </p>
-        </div>
-    {% endfor %}
-  </div>
+<div class="row">
+    <div class="col-xs-6">
+      <h1>Bills for Your House</h1>
+        <ul class="nav nav-stacked" id="accordion1">
+          {% for bill in house_bills %}
+            <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{bill.bill_id}}" href="#Link{{bill.bill_id}}">{{bill.description}}</a>
+              <ul id="Link{{bill.bill_id}}" class="collapse">
+                  <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
+                  <li>Due Date: {{bill.due_date}}</li>
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
+    <div class="col-xs-6">
+      <h1>Your Unpaid Bills</h1>
+          <ul class="nav nav-stacked" id="accordion2">
+            {% for bill in bills %}
+            {% set user_portion = bill.amount / count %}
+              <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion2" href="#secondLink">{{bill.description}}</a>
+                <ul id="secondLink" class="collapse">
+                  <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
+                  <li>Your Portion: ${{"%0.2f" | format(user_portion)}}</li>
+                  <li>Due Date: {{bill.due_date}}</li>
+                </ul>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>  
+    </div>
+</div>
+<div> 
   <form align="right" action="/add_bill">
-    <button type="submit">Add Bill</button>
+    <button class="btn btn-warning" type="submit">Add Bill</button>
   </form>
   <form align="right" action="/edit_bills">
-    <button type="submit">Edit Bills</button>
+    <button class="btn btn-warning" type="submit">Edit Bills</button>
   </form>
+</div>
 {% endblock %}
