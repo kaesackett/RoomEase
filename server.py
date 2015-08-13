@@ -165,12 +165,13 @@ def show_edit_bill_page():
 
     user = User.query.filter_by(email=session["email"]).one()
     house_id = user.house_id
-    bills = User_Payment.query.filter_by(user_id=user.user_id).all()
+    bills = User_Payment.query.filter_by(user_id=user.user_id, paid=False).all()
     for bill in bills:
         bill2 = Bill.query.filter_by(bill_id=bill.bill_id).one()
         bill.description = bill2.description
         bill.due_date = bill2.due_date
     count = User.query.filter_by(house_id=house_id).count()
+    print bills
     return render_template("edit_bills.html", bills=bills, count=count)
 
 @app.route("/edit_bill_handler")
