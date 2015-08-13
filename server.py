@@ -230,16 +230,6 @@ def add_message():
     print messages
     return jsonify(messages=messages)
 
-@app.route("/my_profile")
-def my_profile():
-    """Show details of the account of the user currently in session."""
-
-    if session:
-        user = User.query.filter_by(email=session["email"]).one()
-        return render_template("my_profile.html")
-    else:
-        return render_template("nope.html")
-
 if __name__ == "__main__":
     app.debug = True
     # Use the DebugToolbar
