@@ -3,6 +3,14 @@
 	font-family: 'Arvo', serif;
 }
 
+#nope {
+	text-align: center;
+	color: white;
+	background: rgba(240, 173, 78, 0.8);
+	padding: 5px;
+	border: 1px solid white;
+}
+
 #email, #password, #name, #address, #phone, #loginbtn {
 	margin-bottom: 5px;
 }
