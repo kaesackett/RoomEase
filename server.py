@@ -9,6 +9,7 @@ Author: Kaelyn Sackett for Hackbright Academy, Summer 2015
 
 import datetime
 import jinja2
+import json
 import os
 from utils import send_text_reminder
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
@@ -198,7 +199,7 @@ def roomie_list():
         user = User.query.filter_by(email=session["email"]).one()
         house_id = user.house_id
         roommates = User.query.filter_by(house_id=house_id).all()
-        return render_template("roomie_list.html", roommates=roommates)
+        return render_template("roomie_list.html", roommates=roommates, user=user)
     else:
         return render_template("nope.html")
 
@@ -211,16 +212,23 @@ def add_message():
     house_id = user.house_id
     content = request.args.get('content')
     created_at = datetime.datetime.now()
-    new_message = Message(user_id=user_id, content=content, created_at=created_at)
-    db.session.add(new_message)
-    db.session.commit()
-
+    if content:
+        new_message = Message(user_id=user.user_id, content=content, created_at=created_at)
+        db.session.add(new_message)
+        db.session.commit()
     roommate_ids = []
     roommates = User.query.filter_by(house_id=house_id).all()
     for roommate in roommates:
         roommate_ids.append(roommate.user_id)
-    house_messages = Message.query.filter(user_id in roommate_ids).all()
-    return house_messages
+    created_at = datetime.datetime.strftime(created_at, "%Y-%m-%d")
+    house_messages = Message.query.filter(user.user_id in roommate_ids).all()
+    messages = [message.__dict__ for message in house_messages]
+    print [datetime.datetime.strftime(message["created_at"], "%Y-%m-%d") for message in messages]
+    for message in messages:
+        message["created_at"] = datetime.datetime.strftime(message["created_at"], "%Y-%m-%d")
+        del message["_sa_instance_state"]
+    print messages
+    return jsonify(messages=messages)
 
 @app.route("/my_profile")
 def my_profile():
@@ -233,8 +241,8 @@ def my_profile():
         return render_template("nope.html")
 
 if __name__ == "__main__":
-    # app.debug = True
-    # # Use the DebugToolbar
-    # DebugToolbarExtension(app)
+    app.debug = True
+    # Use the DebugToolbar
+    DebugToolbarExtension(app)
     connect_to_db(app)
     app.run()

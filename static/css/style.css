@@ -17,6 +17,25 @@
 	margin-bottom: 4px;
 }
 
+#messageBoard {
+	padding: 15px;
+	padding-top: 10px;
+	background: rgba(240, 173, 78, 0.8)
+}
+
+#messageEntry {
+	margin-bottom: 5px;
+	background: rgba(0,0,0,0.8);
+	color: white;
+}
+
+#messageBox {
+	background-color: white;
+	padding: 10px;
+	margin-left: 20px;
+	margin-right: 20px
+}
+
 #listContainer {
 	width: 1300px;
 	margin: auto;
