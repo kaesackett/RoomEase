@@ -20,7 +20,7 @@
 		<button type="submit" id="submitButton" class="btn btn-warning" style="border: 1px solid white; margin-bottom: 50px;"><strong>Send Message</strong>
 	</form>
 
-	<script>
+	<script type="text/javascript">
 	var checkMessages = function (evt) {
 		evt.preventDefault();
 		$.get('/message_handler', {"content":$('#messageEntry').val()},  function (data) {
