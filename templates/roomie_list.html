@@ -17,10 +17,10 @@
     	
 	<form align="right" class="form-group page-content">
 		<textarea id="messageEntry" class="form-control" rows="3" name="content" placeholder="Your Message Here"></textarea>
-		<button type="submit" id="submitButton" class="btn btn-warning" style="border: 1px solid white; margin-bottom: 50px;"><strong>Send Message</strong>
+		<button type="submit" id="submitButton" class="btn btn-warning"><strong>Send Message</strong></button>
 	</form>
-
-	<script type="text/javascript">
+	<!-- Update message board on page load and when new message is submitted -->
+	<script>
 	var checkMessages = function (evt) {
 		evt.preventDefault();
 		$.get('/message_handler', {"content":$('#messageEntry').val()},  function (data) {

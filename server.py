@@ -172,7 +172,6 @@ def show_edit_bill_page():
         bill.description = bill2.description
         bill.due_date = bill2.due_date
     count = User.query.filter_by(house_id=house_id).count()
-    print bills
     return render_template("edit_bills.html", bills=bills, count=count)
 
 @app.route("/edit_bill_handler")
@@ -223,11 +222,9 @@ def add_message():
     created_at = datetime.datetime.strftime(created_at, "%Y-%m-%d")
     house_messages = Message.query.filter(user.user_id in roommate_ids).all()
     messages = [message.__dict__ for message in house_messages]
-    print [datetime.datetime.strftime(message["created_at"], "%Y-%m-%d") for message in messages]
     for message in messages:
         message["created_at"] = datetime.datetime.strftime(message["created_at"], "%Y-%m-%d")
         del message["_sa_instance_state"]
-    print messages
     return jsonify(messages=messages)
 
 if __name__ == "__main__":

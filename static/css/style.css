@@ -11,6 +11,11 @@
 	border: 1px solid white;
 }
 
+#submitButton {
+	border: 1px solid white;
+	margin-bottom: 7px;
+}
+
 #email, #password, #name, #address, #phone, #loginbtn {
 	margin-bottom: 5px;
 }
@@ -97,4 +102,5 @@ body {
 
 footer {
   text-align: center;
+  height: 70px;
 }

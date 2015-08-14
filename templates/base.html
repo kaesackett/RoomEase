@@ -86,6 +86,7 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
+  
   {% block content %}
   {% endblock %}
 
@@ -107,16 +108,6 @@
     };
 
     $('button#showLogin').on('click', showLogin);
-
-
-    $(function() {
-       $("li").click(function() {
-          // remove classes from all
-          $("li").removeClass("active");
-          // add class to the one we just clicked
-          $(this).addClass("active");
-      });
-    });
   </script>
 </body>
 </html>
