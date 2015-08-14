@@ -31,8 +31,11 @@
 }
 
 #messageBoard {
+	resize: none;
+	overflow: hidden;
 	padding: 15px;
 	padding-top: 10px;
+	border: 1px solid white;
 	background: rgba(240, 173, 78, 0.8)
 }
 
@@ -43,6 +46,9 @@
 }
 
 #messageBox {
+	resize: none;
+	overflow-y: scroll;
+	max-height: 150px;
 	background-color: white;
 	padding: 10px;
 	margin-left: 20px;

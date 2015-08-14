@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<title>RoomEase: Roomies</title>
 	<div class="page-content">
 	    <ul class="list-group">
 	    {% for roommate in roommates %}
@@ -20,6 +21,10 @@
 		<button type="submit" id="submitButton" class="btn btn-warning"><strong>Send Message</strong></button>
 	</form>
 	<!-- Update message board on page load and when new message is submitted -->
+
+	<script>
+		document.getElementById('#messageBox').scrollIntoView();
+	</script>
 	<script>
 	var checkMessages = function (evt) {
 		evt.preventDefault();
