@@ -5,19 +5,19 @@
   <form class="form-group" name="signup_form" action="/sign_up_handler" method="POST">
     <div class="row">
       <label for="email"></label>
-    	  <input type="text" name="email" id="email" class="col-xs-4 form-control" placeholder="Email" tabindex="1">
+    	  <input type="text" name="email" id="email" data-validate="required,email" class="col-xs-4 form-control" placeholder="Email" tabindex="1">
       <label for="password"></label>
-     	  <input type="password" name="password" id="password" class="col-xs-4 form-control" placeholder="Password" tabindex="1">
+     	  <input type="password" name="password" data-validate="required" id="password" class="col-xs-4 form-control" placeholder="Password" tabindex="1">
     </div>
     <div class="row">
       <label for="name"></label>
-        <input type="text" name="name" id="name" class="col-xs-4 form-control" placeholder="First Name" tabindex="1">
+        <input type="text" name="name" id="name" data-validate="required" class="col-xs-4 form-control" placeholder="First Name" tabindex="1">
       <label for="address"></label>
-    	  <input type="text" name="address" id="address" class="col-xs-4 form-control" placeholder="Address" tabindex="1">
+    	  <input type="text" name="address" id="address" data-validate="required" class="col-xs-4 form-control" placeholder="Address" tabindex="1">
     </div>
     <div class="row">
       <label for="phone"></label>
-        <input type="tel" name="phone" id="phone" class="col-xs-4 form-control" placeholder="Phone" tabindex="1">
+        <input type="tel" name="phone" id="phone" data-validate="required" class="col-xs-4 form-control" placeholder="Phone" tabindex="1">
     </div>
     <div class="row">
       <button class="btn btn-warning" type="submit">Register Now</button>

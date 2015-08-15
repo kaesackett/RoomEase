@@ -11,6 +11,14 @@
 	border: 1px solid white;
 }
 
+#roomieListMaster {
+	height: 500px;
+}
+
+#messageBoardMaster {
+	height: 500px;
+}
+
 #submitButton {
 	border: 1px solid white;
 	margin-bottom: 7px;
@@ -31,9 +39,8 @@
 }
 
 #messageBoard {
-	resize: none;
-	overflow: hidden;
 	padding: 15px;
+	min-height: 370px;
 	padding-top: 10px;
 	border: 1px solid white;
 	background: rgba(240, 173, 78, 0.8)
@@ -46,9 +53,7 @@
 }
 
 #messageBox {
-	resize: none;
-	overflow-y: scroll;
-	max-height: 150px;
+	min-height: 275px;
 	background-color: white;
 	padding: 10px;
 	margin-left: 20px;
@@ -67,12 +72,6 @@
 	color: white;
 	font-weight: bold;
 	border: solid 1px white;
-}
-
-#logo {
-  padding: 1px;
-  width:50px;
-  height:50px;
 }
 
 #navmaster {

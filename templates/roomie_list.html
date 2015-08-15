@@ -2,14 +2,21 @@
 
 {% block content %}
 <title>RoomEase: Roomies</title>
+<div class="row">
+<div id="roomieListMaster" class="col-xs-3">
 	<div class="page-content">
-	    <ul class="list-group">
+	    <ul class="list-group nav nav-stacked" style="color:black;" id="accordion5">
 	    {% for roommate in roommates %}
-	        <li style="background: rgba(240, 173, 78, 0.8); border: 1px solid white;" class="list-group-item">{{roommate.name}}, <span id="phone">{{roommate.phone}}</span></li>
-	    {% endfor %}
+	        <li style="background: rgba(240, 173, 78, 0.8); border: 1px solid white;" class="panel list-group-item img-rounded"><a style="color: black; padding: 2px; margin: auto;" class="img-rounded" data-toggle="collapse" data-parent="#accordion{{roommate.name}}" href="#Link{{roommate.name}}"><strong>{{roommate.name}}</strong></a>
+	        <ul id="Link{{roommate.name}}" class="collapse img-rounded">
+              <li>Phone: {{roommate.phone}}</li>
+            </ul>
+           </li>
+          {% endfor %}
 	    </ul>
     </div>
-
+</div>
+<div id="messageBoardMaster" class="col-xs-9">
 	<div id="messageBoard" class="page-content img-rounded">
 		<h1>Message Board</h1>
     		<div id="messageBox" class="img-rounded">Messages go here!
@@ -17,14 +24,12 @@
 	</div>
     	
 	<form align="right" class="form-group page-content">
-		<textarea id="messageEntry" class="form-control" rows="3" name="content" placeholder="Your Message Here"></textarea>
+		<textarea id="messageEntry" class="form-control" rows="3" name="content" placeholder="Your Message Here" required ></textarea>
 		<button type="submit" id="submitButton" class="btn btn-warning"><strong>Send Message</strong></button>
 	</form>
-	<!-- Update message board on page load and when new message is submitted -->
+</div>
 
-	<script>
-		document.getElementById('#messageBox').scrollIntoView();
-	</script>
+	<!-- Update message board on page load and when new message is submitted -->
 	<script>
 	var checkMessages = function (evt) {
 		evt.preventDefault();
