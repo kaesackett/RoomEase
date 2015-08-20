@@ -10,25 +10,33 @@
 {% block content %}
 <title>RoomEase: Edit Bills</title>
 <div class="page-content">
-  <h3>Bills</h3>
-
-  <div>
+  <div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4 img-rounded" style="border: 1px solid white; background: rgba(240, 173, 78, 0.8);">
+      <h2 style="color: black;">Edit Bills</h2>
     {% for bill in bills %}
     {% set user_portion = bill.amount / count %}
-      <div class="img-rounded" id="editBillList">
-      <h4 style="margin: 5px;">{{bill.description}}</h4>
-        <div style="margin: 5px;" class="row">
-          <p class="col-md-6">
-            Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}<br>
-            Your Portion: {{user_portion}}<br>
-            Due Date: {{bill.due_date}}
-          </p>
-          <form class="col-md-6" align="right" action="/edit_bill_handler">
-            <input type="checkbox" name="bill_id" value="{{bill.bill_id}}">Paid
-            <button class="btn btn-warning" type="submit">Submit Changes</button>
-          </form>  
+      <div class="img-rounded" display="block" id="editBillList">
+        <h4 style="margin: 5px;">{{bill.description}}</h4>
+          <div style="margin: 5px;">
+            <p>
+              Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}<br>
+              Your Portion: ${{"%0.2f" | format(user_portion)}}<br>
+              Due Date: {{bill.due_date}}
+            </p>
+            <div align="right">
+              <form align="right" action="/edit_bill_handler">
+                <input type="checkbox" name="bill_id" value="{{bill.bill_id}}">Paid
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+            <div align="right" style="padding: 7px;">
+              <button align="right" class="btn btn-warning" style="border: 1px solid white;" type="submit">Submit Changes</button>
+            </div>  
+          </form>
         </div>
       </div>
-    {% endfor %}
-</div>
+    <div class="col-xs-4"></div>
+  </div>
 {% endblock %}

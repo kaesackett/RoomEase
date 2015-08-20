@@ -3,12 +3,34 @@
 {% block content %}
 <title>Welcome to RoomEase</title>
 <div class="page-content">
-<div class="container">
-  <div id="body" class="fluid-container page-content">
-    <div class="jumbotron" id="jumbotron">
-      <h1>Welcome to RoomEase!</h1> 
-      <p>RoomEase is a web-app desgined to make living with roommates easier by keeping track of your house's bills.</p> 
-    </div>
+	<div class="container">
+	<div id="body" class="fluid-container">
+	  <div class="jumbotron row" id="jumbotron">
+	      <h1><strong>Welcome to RoomEase!</strong></h1> 
+	      <p>RoomEase is a web-app desgined to make living with roommates easier by keeping track of your house's bills.</p>
+	      <br>
+	      <br>
+	  <div class="img-rounded" style="border: 1px solid white; padding: 5px; color: black; background-color: rgba(231,231,231, 0.7);">
+	    Login or Register now to be able to:<br>
+	    <div class="row" align="center" style="padding-top: 15px; padding-bottom: 5px;">
+	      <div class="col-xs-4" display="block" align="center" style="border-right: 2px solid white;">
+	    	<a style="text-decoration: none; color: black;" href="/bills"><span class="glyphicon glyphicon-home"></span></a><br>
+		      Keep track of your house's bills, and see which bills you have and have not paid your share of.
+		      <br>
+		      <br>
+		      <br>
+	      </div>
+	      <div class="col-xs-4" display="block" align="center" style="border-right: 2px solid white;">
+	    	<a style="text-decoration: none; color: black;" href="/roomies"><span align="center" class="glyphicon glyphicon-envelope"></span></a><br>
+	    	Send messages to your roommates via the house message board. Text reminders will be sent automatically to roommates that have unpaid bills with approaching due dates!
+	      </div>
+		  <div class="col-xs-4" display="block" align="center">
+	    	<a style="text-decoration: none; color: black;" href="/calendar"><span class="glyphicon glyphicon-calendar"></span></a><br>
+	    	  See all of the open bills for your house in Calendar View. 
+	      </div>
+	    </div>
+	  </div>
+	</div>
   </div>
 </div>
 

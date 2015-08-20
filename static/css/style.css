@@ -1,6 +1,24 @@
 .page-content {
 	margin: 15px;
-	font-family: 'Arvo', serif;
+	font-family: 'Roboto Slab', serif;
+}
+
+.glyphicon {
+	font-size: 4.5em;
+	padding-bottom: 5px;
+}
+
+.modal-content {
+	background: rgba(240, 173, 78, 0.8);
+	border: 1px solid white;	
+}
+
+#login_modal {
+	background: rgba(0, 0, 0, 0.7);
+}
+
+#accordion5 {
+	font-size: 1.2em;
 }
 
 #nope {
@@ -28,13 +46,22 @@
 	margin-bottom: 5px;
 }
 
+#loginbtn {
+	border: 1px solid white;
+	font-weight: bold;
+}
+
+#hideLogin {
+	font-weight: bold;
+}
+
 #showLogin, #logout {
 	margin: 7px;
 }
 
 #editBillList {
 	border: 1pt solid black;
-	background-color: #e7e7e7;
+	background: rgba(255, 255, 255, 0.7);;
 	margin-bottom: 4px;
 }
 
@@ -87,6 +114,7 @@
 	width: 100%;
 	color: white;
 	background: rgba(240, 173, 78, 0.7);
+	border: 1px solid white;
 }
 
 #calendar {

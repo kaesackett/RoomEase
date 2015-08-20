@@ -2,7 +2,7 @@
 
 {% block content %}
 <title>RoomEase: Bills</title>
-<div class="img-rounded" id="listContainer">
+<div class="img-rounded" id="listContainer" style="border: 1px solid white;">
   <div class="row page-content">
     <div class="col-xs-6">
       <h1 style="color:black;">Bills for Your House</h1>
@@ -20,16 +20,17 @@
     <div class="col-xs-6">
       <h1 style="color:black;">Your Unpaid Bills</h1>
         <ul class="nav nav-stacked" id="accordion2">
+          {% set iteration = 1000 %}
           {% for bill in bills %}
           {% set user_portion = bill.amount / count %}
-            <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{count}}" href="#Link{{count}}"><strong>{{bill.description}}</strong></a>
-              <ul id="Link{{count}}" style="color:black;" class="collapse">
+            <li class="panel"> <a style="color: #f0ad4e;" data-toggle="collapse" data-parent="#accordion{{iteration}}" href="#Link{{iteration}}"><strong>{{bill.description}}</strong></a>
+              <ul id="Link{{iteration}}" style="color:black;" class="collapse">
                 <li>Total Bill Amount: ${{"%0.2f" | format(bill.amount)}}</li>
                 <li>Your Portion: ${{"%0.2f" | format(user_portion)}}</li>
                 <li>Due Date: {{bill.due_date}}</li>
               </ul>
             </li>
-          {% set count = count + 1 %}
+          {% set iteration = iteration + 1 %}
           {% endfor %}
         </ul>
     </div>  

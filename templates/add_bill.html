@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <title>RoomEase: Add Bill</title>
-<div class="page-content">
+<div class="row">
+<div class="col-xs-3">
+</div>
+
+<div class="page-content col-xs-6 img-rounded" style="background: rgba(240, 173, 78, 0.8);">
   <h3>Add a New Bill</h3>
   <form class="form-group" action="/add_bill_handler">
     <label for="description">Description: </label>
@@ -10,8 +14,11 @@
       <input class="form-control" type="date" min="2015-08-14" name="due_date" id="due_date" data-validate="required">
       <br>
     <label for="amount">Amount: </label>
-      <input class="form-control" type="text" name="amount" data-validate="required,currency" id="amount"><br>
-    <button class="btn btn-warning" type="submit">Submit</button>
+      <input class="form-control" type="text" name="amount" data-validate="required" id="amount"><br>
+    <button class="btn btn-warning" style="border: 1px solid white;" type="submit">Submit</button>
   </form>
+<div class="col-xs-3">
+</div>
+</div>
 </div>
 {% endblock %}

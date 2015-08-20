@@ -18,9 +18,9 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Arvo' type='text/css'>
+  <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto+Slab:700'>  
 
-  
+
   {% block head %}
   {% endblock %}
 </head>
@@ -82,14 +82,18 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body text-center form-group">
-      <form id="loginform" name="loginform" method="POST" action="/login_handler">
+          <form id="loginform" name="loginform" method="POST" action="/login_handler">
             <input type="text" name="email" id="email" data-validate="required,email" class="form-control" tabindex="1" placeholder="Email"> 
             <input type="password" name="password" id="password" data-validate="required" class="form-control" tabindex="2" placeholder="Password">
-            <div class="center">
-              <input class="btn btn-warning" type="submit" name="loginbtn" id="loginbtn" value="Log In" tabindex="3">
+            <div class="row" style="padding: 10px;">
+              <div class="col-xs-2"></div>
+              <input class="btn btn-warning col-xs-3" type="submit" name="loginbtn" id="loginbtn" value="Log In">
+              <div class="col-xs-2"></div>
+              <button id="hideLogin" class="btn btn-warning col-xs-3" align="center" style="border: 1px solid white; color: white; text-decoration: none;">Cancel</button>
+              <div class="col-xs-2"></div>
             </div>
-            <a href="/sign_up">Click Here to Register</a>
-        </form>
+          </form>
+            <a href="/sign_up" style="text-decoration: none; color: black;"><strong>Click Here to Register</strong></a>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -101,10 +105,10 @@
   <footer>
     <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#f0ad4e;">
       <div class="container page-content">
-          <p class="text-muted">Created by <strong>Kae Sackett</strong> at Hackbright XI.
-            <a href="http://www.github.com/kaesackett" target="_blank">GitHub</a> | 
-            <a href="http://www.linkedin.com/in/kaesackett" target="_blank">LinkedIn</a> | 
-            <a href="https://www.dropbox.com/s/1dcdwz3g0cv3mqo/Kaelyn%20Sackett%20Resume.docx?dl=0" target="_blank">Resume</a>
+          <p style="color: grey;">Created by Kae Sackett at Hackbright XI.
+            <a href="http://www.github.com/kaesackett" style="color: white;" target="_blank">GitHub</a> | 
+            <a href="http://www.linkedin.com/in/kaesackett" style="color: white;" target="_blank">LinkedIn</a> | 
+            <a href="https://www.dropbox.com/s/1dcdwz3g0cv3mqo/Kaelyn%20Sackett%20Resume.docx?dl=0" style="color: white;" target="_blank">Resume</a>
           </p>
       </div>
     </nav>
@@ -115,7 +119,13 @@
       $('div#login_modal').attr('style', 'display: block;');
     };
 
+    function hideLogin(evt){
+      evt.preventDefault()
+      $('div#login_modal').attr('style', 'display: none;');
+    };
+
     $('button#showLogin').on('click', showLogin);
+    $('button#hideLogin').on('click', hideLogin);
   </script>
 </body>
 </html>
