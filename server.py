@@ -80,9 +80,10 @@ def handle_login():
         session["email"] = email
         return redirect('/')
     #if email is correct but not password, tell them they fucked up
-    elif User.query.filter(User.email == email, User.password != password).first(): 
+    else:
         flash("Incorrect login information provided. Please try again.")
         return redirect("/")
+
 
 @app.route('/logout', methods=["POST"])
 def handle_logout():
@@ -140,17 +141,16 @@ def show_add_bill_page():
     bills = Bill.query.filter_by(house_id=house_id).all()
     return render_template("add_bill.html")
 
-@app.route("/add_bill_handler")
+@app.route("/add_bill_handler", methods=["POST"])
 def add_bill():
     """Insert a new bill into the database."""
 
-    description = request.args.get("description")
-    due_date = datetime.datetime.strptime(request.args.get("due_date"), "%Y-%m-%d")
-    amount = request.args.get("amount")
+    description = request.form.get("description")
+    due_date = datetime.datetime.strptime(request.form.get("due_date"), "%Y-%m-%d")
+    amount = request.form.get("amount")
     # Get house_id from the user in session
     user = User.query.filter_by(email=session["email"]).one()
     house_id = user.house_id
-
     new_bill = Bill(description=description, due_date=due_date, amount=amount, house_id=house_id)
     db.session.add(new_bill)
     db.session.commit()
