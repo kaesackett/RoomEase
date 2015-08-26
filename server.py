@@ -11,11 +11,13 @@ import datetime
 import jinja2
 import json
 import os
-from utils import send_text_reminder
+
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
-from model import User, House, Bill, User_Payment, Message, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
 from twilio.rest import TwilioRestClient
+
+from model import User, House, Bill, User_Payment, Message, connect_to_db, db
+from utils import send_text_reminder
 
 app = Flask(__name__)
 
@@ -229,7 +231,5 @@ def add_message():
 
 if __name__ == "__main__":
     app.debug = True
-    # Use the DebugToolbar
-    DebugToolbarExtension(app)
     connect_to_db(app)
     app.run()
