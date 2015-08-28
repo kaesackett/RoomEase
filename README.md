@@ -18,13 +18,13 @@ RoomEase is written in Python 2.7, JavaScript, SQLite3, and HTML5/CSS3 with the 
 
 1) Clone the repository:
 
-<pre><code>$ git clone https://www.github.com/kaesackett/RoomEase.git</code></pre>
+<pre><code>$ git clone https://github.com/kaesackett/RoomEase.git</code></pre>
 
 2) Create and activate a virtual environment in the same directory: 
 
 <pre><code>$ pip install virtualenv
 $ virtualenv env
-$ . env/bin/activate 
+$ source env/bin/activate 
 </code></pre>
 
 3) Install the required packages using pip:
