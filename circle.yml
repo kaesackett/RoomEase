@@ -1,9 +1,3 @@
-version: 2
-jobs:
-  build:
-    working_directory: /tmp
-    docker:
-      - image: busybox
-    environment:
-       my_number: "5555555"
-
+machine:
+  environment:
+    my_number: "5555555"
