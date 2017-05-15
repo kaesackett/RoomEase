@@ -1,7 +1,8 @@
 RoomEase
 ========
-
+Current build status: <img src="https://circleci.com/gh/kaesackett/RoomEase.svg?style=shield&circle-token=:circle-token">
 <h3>Built by <a href="https://www.linkedin.com/in/kaesackett">Kaelyn Sackett</a></h3>
+
 <h3><strong>The Project</strong></h3>
 <h5>RoomEase is a web application designed to make living with roommates easier by:</h5>
 <ul>
