@@ -1,6 +1,6 @@
 RoomEase
 ========
-Current build status: <img src="https://circleci.com/gh/kaesackett/RoomEase.svg?style=shield&circle-token=:circle-token">
+Current build status: <img src="https://circleci.com/gh/:owner/:repo.svg?style=shield&circle-token=:circle-token">
 <h3>Built by <a href="https://www.linkedin.com/in/kaesackett">Kaelyn Sackett</a></h3>
 
 <h3><strong>The Project</strong></h3>
