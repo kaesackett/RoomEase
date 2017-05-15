@@ -1,4 +1,5 @@
 machine:
   environment:
     my_number: "5555555"
-    TWILIO_ACCOUNT_SID: "placeholder"
+    TWILIO_ACCOUNT_SID: "placeholder_to_test_CI"
+    TWILIO_AUTH_TOKEN: "also_a_placeholder"
